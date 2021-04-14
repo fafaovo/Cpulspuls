@@ -47,8 +47,14 @@ public:
 	//删除员工
 	void Del_Emp();
 
+	//排序
+	void Sort_Emp();
+
 	//统计人数 通过统计出有多少个人,然后开辟多少个空间
 	int get_Num();
+
+	//清空文件
+	void Clear_Emp();
 
 	//析构
 	~WorkerManagr();

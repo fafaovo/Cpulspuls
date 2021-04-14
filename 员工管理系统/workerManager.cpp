@@ -299,14 +299,102 @@ void WorkerManagr::Modify_Emp()
 	system("cls");
 }
 
-//WorkerManagr的析构函数
-WorkerManagr::~WorkerManagr()
+//排序员工
+void WorkerManagr::Sort_Emp()
 {
-	if (this->m_EmpArray != NULL)
+	if (this->m_EmpNum == 0)
 	{
-		delete[] this->m_EmpArray;
-		this->m_EmpArray = NULL;
+		cout << "无排序内容" << endl;
 	}
+	int input = 0;
+	cout << "1.正序 2.倒序" << endl;
+	cin >> input;
+	if (input == 1)
+	{
+		//这里用选择排序
+		int i = 0;
+		while (i < this->m_EmpNum)
+		{
+			//定义两个底数 一个是用于遍历剩下的数组，一个是用于记录最小的数
+			int min = i;
+			int k = i;
+			while (k < this->m_EmpNum)
+			{
+				if ((this->m_EmpArray[k]->m_id) < (this->m_EmpArray[min]->m_id))
+				{
+					min = k;
+				}
+				k++;
+			}
+			if (min != i)
+			{
+				Worker* result = this->m_EmpArray[i];
+				this->m_EmpArray[i] = this->m_EmpArray[min];
+				this->m_EmpArray[min] = result;
+			}
+			i++;
+		}
+	}
+	else
+	{
+		//这里写个冒泡排序
+		for (int i = 0; i < this->m_EmpNum-1; i++)
+		{
+			for (int k = 0; k < (this->m_EmpNum) - i - 1; k++)
+			{
+				if ((this->m_EmpArray[k]->m_id) < (this->m_EmpArray[k + 1]->m_id))
+				{
+					Worker* result = this->m_EmpArray[k];
+					this->m_EmpArray[k] = this->m_EmpArray[k + 1];
+					this->m_EmpArray[k + 1] = result;
+				}
+				
+			}
+		}
+	}
+	this->save_Emp();
+	system("pause");
+	system("cls");
+}
+
+//清空文件
+void WorkerManagr::Clear_Emp()
+{
+	if (this->m_EmpNum == 0)
+	{
+		cout << "无数据可清空" << endl;
+	}
+	cout << "确认清空？1.确认 2.返回" << endl;
+
+	int select = 0;
+	cin >> select;
+
+	if (select == 1)
+	{
+		//清空文件
+		ofstream ofs(FILENAME, ios::trunc);
+		//删除文件后重新生成
+		ofs.close();
+
+		if (this->m_EmpArray != NULL)
+		{
+			//删除创建在堆区的每个职工对象
+			for (int i = 0; i < this->m_EmpNum; i++)
+			{
+				delete this->m_EmpArray[i];
+				this->m_EmpArray[i] = NULL;
+			}
+			//删除在堆区创建的数组指针
+			delete[] this->m_EmpArray;
+			this->m_EmpArray = NULL;
+			this->m_EmpNum = 0;
+			this->m_FileIsEmpty = true;		
+		}
+
+		cout << "清空成功" << endl;
+	}
+	system("pause");
+	system("cls");
 }
 
 //显示菜单
@@ -323,4 +411,14 @@ void WorkerManagr::Show_Menu()
 	cout << "*******  6.按照编号排序  ********" << endl;
 	cout << "*******  7.清空所有文档  ********" << endl;
 	cout << "*********************************" << endl;
+}
+
+//WorkerManagr的析构函数
+WorkerManagr::~WorkerManagr()
+{
+	if (this->m_EmpArray != NULL)
+	{
+		delete[] this->m_EmpArray;
+		this->m_EmpArray = NULL;
+	}
 }

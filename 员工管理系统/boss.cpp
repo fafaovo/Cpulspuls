@@ -9,10 +9,10 @@ boss::boss(int id, string name, int did)
 //个人信息
 void boss::showInfo()
 {
-	cout << "员工编号:" << this->m_id << "\t";
-	cout << "员工名字:" << this->m_name << "\t";
-	cout << "员工岗位:" << this->getDeptName() << "\t";
-	cout << "岗位职责:管理公司事务" << endl;
+	cout << "员工编号 :" << this->m_id << "\t";
+	cout << "员工名字 :" << this->m_name << "\t";
+	cout << "员工岗位 :" << this->getDeptName() << "\t";
+	cout << "岗位职责 :管理公司事务" << endl;
 
 }
 //获取职工岗位名称;

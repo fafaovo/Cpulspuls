@@ -32,6 +32,7 @@ void test01()
 			WM.Seek_Emp();
 			break;
 		case SORT:   //ÅÅÐò
+			WM.Sort_Emp();
 			break;
 		case REMOVE:   //Çå¿Õ
 			break;
